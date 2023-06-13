@@ -14,7 +14,8 @@
         <div class="col-md-6 mt-5 mb-5">
             <div class="card" id="card" style="margin-top:50px;">
                 <div class="card-header">Register</div>
-                <form action="#" method="post" id="registrationForm">
+                <form action="{{ route('store.seeker') }}" method="post" id="registrationForm">
+                    @csrf
                     <div class="card-body">
                         <div class="form-group">
                             <label for="">Full name</label>
