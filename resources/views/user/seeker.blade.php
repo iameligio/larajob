@@ -40,11 +40,12 @@
                         </div>
                         <br>
                         <div class="form-group mb-5 mt-3">
-                            <button class="btn btn-dark" id="btnRegister">Register</button>
+                            <button class="btn btn-dark" type="submit" id="btnRegister">Register</button>
                         </div>
                     </div>
                 </form>
             </div>
+            <div id="message" class="mt-2"></div>
         </div>
     </div>
 </div>
