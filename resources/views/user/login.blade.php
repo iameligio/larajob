@@ -5,9 +5,7 @@
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            @if(Session::has('successMessage'))
-                <div class="alert alert-success">{{ Session::get('successMessage') }}</div>
-            @endif
+            @include("message")
             <div class="card ">
                 <div class="card-header">Login</div>
                 <form action="{{route('login.post')}}" method="post">@csrf
