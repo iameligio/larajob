@@ -23,15 +23,25 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="#">Home</a>
                     </li>
+                    @if(!Auth::check())
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('login') }}">Login</a>
                     </li>
+
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('create.seeker') }}">Job Seeker</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link " href="#">Employer</a>
                     </li>
+                    @endif
+                    @if(Auth::check()){
+                        <li class="nav-item">
+                            <a class="nav-link" id="logout" href="#">Logout</a>
+                        </li>
+                    }
+                    <form id="form-logout" action={{ route('logout') }} method="post">@csrf </form>
+                    @endif
                 </ul>
             </div>
         </div>
