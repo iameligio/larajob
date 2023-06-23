@@ -5,18 +5,19 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\SeekerRegistrationRequest;
+use App\Http\Requests\RegistrationFormRequest;
 
 class UserController extends Controller
 {
     const JOB_SEEKER = 'seeker';
+    const JOB_POSTER = 'employer';
 
     public function createSeeker()
     {
         return view('user.seeker');
     }
 
-    public function storeSeeker(SeekerRegistrationRequest $request)
+    public function storeSeeker(RegistrationFormRequest $request)
     {
 
         User::create([
@@ -26,7 +27,7 @@ class UserController extends Controller
             'user_type' => self::JOB_SEEKER
         ]);
 
-        return back();
+        return redirect()->route('login')->with('successMessage','Your account was successfully created.');
 
     }
 
@@ -51,6 +52,25 @@ class UserController extends Controller
         }
 
         return 'Wrong email or password';
+    }
+
+    public function createEmployer()
+    {
+        return view('user.employer');
+    }
+
+    public function storeEmployer(RegistrationFormRequest $request)
+    {
+
+        User::create([
+            'name'=> $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+            'user_type' => self::JOB_POSTER
+        ]);
+
+        return redirect()->route('login')->with('successMessage','Your account was successfully created.');
+
     }
 
     public function logout()
