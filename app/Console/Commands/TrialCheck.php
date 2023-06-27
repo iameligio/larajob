@@ -36,7 +36,7 @@ class TrialCheck extends Command
             {
                 $trialEnd = Carbon::parse($user->user_trial);
 
-                if($trialEnd->isSameDay($today))
+                if($trialEnd->isSameDay($today) )
                 {
                     Mail::to($user->email)->send(new TrialEndNotification($user->name));
                     $this->info('Trial ended email sent to:'.$user->email);
