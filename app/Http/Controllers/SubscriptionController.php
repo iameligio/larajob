@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Middleware\isAlreadyPaid;
 use Stripe\Stripe;
 use App\Models\User;
+use App\Mail\PurchaseMail;
 use Illuminate\Http\Request;
 use Stripe\Checkout\Session;
 use App\Http\Middleware\isEmployer;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Mail;
+use App\Http\Middleware\isAlreadyPaid;
 
 class SubscriptionController extends Controller
 {
@@ -118,12 +120,11 @@ class SubscriptionController extends Controller
              'status' => 'paid'
          ]);
 
-       #  try {
-       #      Mail::to(auth()->user())->queue(new PurchaseMail($plan,$billingEnds));
-
-       #  }catch (\Exception $e) {
-        #     return response()->json($e);
-       #  }
+         try {
+            Mail::to(auth()->user())->queue(new PurchaseMail($plan,$billingEnds));
+         }catch (\Exception $e) {
+             return response()->json($e);
+         }
 
 
         return redirect()->route('dashboard')->with('success','Payment was successfully processed');
