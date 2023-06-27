@@ -4,11 +4,16 @@
 
 <div class="container mt-5">
         Hello, {{auth()->user()->name}}
-        @if(Auth::check() && auth()->user()->user_type == 'employer')
+        @if(Auth::check() && auth()->user()->user_type == 'employer' && auth()->user()->billing_ends === NULL)
             <p>Your trial {{ now()->format('Y-m-d') > auth()->user()->user_trial ? 'was expired':'will expire' }} on {{auth()->user()->user_trial}}</p>
         @endif
     <div class="row justify-content-center">
-
+        @if (Session::has('success'))
+            <div class="alert alert-success">{{ Session::get('success') }}</div>
+        @endif
+        @if (Session::has('error'))
+            <div class="alert alert-danger">{{ Session::get('error') }}</div>
+        @endif
         <div class="col-md-3">
             <div class="card-counter primary">
                 <p class="text-center mt-3 lead">

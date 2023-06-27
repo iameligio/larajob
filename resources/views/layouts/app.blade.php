@@ -48,14 +48,15 @@
     </nav>
     @yield('content')
 
+    @if(Auth::check()){
     <script>
         let logout = document.getElementById('logout');
-        let form = document.getElementById('form-logout');
+        let navform = document.getElementById('form-logout');
         logout.addEventListener('click', function() {
-            form.submit();
+            navform.submit();
         })
     </script>
-
+     @endif
 </body>
 
 </html>
