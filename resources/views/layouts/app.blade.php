@@ -37,6 +37,14 @@
                     @endif
                     @if(Auth::check()){
                         <li class="nav-item">
+                            <a class="nav-link" id="dashboard" href="{{ route('dashboard') }}">Dashboard</a>
+                        </li>
+                        @if(auth()->user()->user_type == 'employer')
+                            <li class="nav-item">
+                                <a class="nav-link" id="subscribe" href="{{ route('subscribe') }}">Subscribe</a>
+                            </li>
+                        @endif
+                        <li class="nav-item">
                             <a class="nav-link" id="logout" href="#">Logout</a>
                         </li>
                     }

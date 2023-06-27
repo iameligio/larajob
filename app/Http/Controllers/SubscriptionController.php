@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Middleware\isAlreadyPaid;
 use Stripe\Stripe;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -20,7 +21,7 @@ class SubscriptionController extends Controller
 
     public function __construct()
     {
-        $this->middleware(['auth',isEmployer::class]);
+        $this->middleware(['auth',isEmployer::class,isAlreadyPaid::class]);
     }
 
     public function subscribe()

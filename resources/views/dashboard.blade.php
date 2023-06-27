@@ -4,8 +4,12 @@
 
 <div class="container mt-5">
         Hello, {{auth()->user()->name}}
-        @if(Auth::check() && auth()->user()->user_type == 'employer' )
+
+        @if(Auth::check() && auth()->user()->user_type == 'employer' && !auth()->user()->billing_ends )
             <p>Your trial {{ now()->format('Y-m-d') > auth()->user()->user_trial ? 'was expired':'will expire' }} on {{auth()->user()->user_trial}}</p>
+        @endif
+        @if(Auth::check() && auth()->user()->user_type == 'employer' )
+            <p>Your membership {{ now()->format('Y-m-d') > auth()->user()->user_billing_ends ? 'will expire':'was expired' }} on {{auth()->user()->billing_ends}}</p>
         @endif
     <div class="row justify-content-center">
         @if (Session::has('success'))
@@ -13,6 +17,9 @@
         @endif
         @if (Session::has('error'))
             <div class="alert alert-danger">{{ Session::get('error') }}</div>
+        @endif
+        @if (Session::has('message'))
+            <div class="alert alert-info">{{ Session::get('message') }}</div>
         @endif
         <div class="col-md-3">
             <div class="card-counter primary">
