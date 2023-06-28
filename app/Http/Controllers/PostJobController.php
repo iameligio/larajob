@@ -2,14 +2,22 @@
 
 namespace App\Http\Controllers;
 
+
+use App\Post\JobPost;
+use App\Models\Listing;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Middleware\isPremiumUser;
+use App\Http\Requests\JobPostFormRequest;
 
 class PostJobController extends Controller
 {
-    public function __construct()
+    protected $job;
+
+    public function __construct(JobPost $job)
     {
         $this->middleware(['auth',isPremiumUser::class]);
+        $this->job = $job;
     }
 
      public function create()
@@ -17,16 +25,12 @@ class PostJobController extends Controller
         return view('job.create');
      }
 
-     public function store(Request $request)
+     public function store(JobPostFormRequest $request)
      {
-        $this->validate($request, [
-            'title' => 'required|min:5',
-            'featured_image' => 'required|mimes:png,jpg,jpeg|max:2048',
-            'description' => 'required|min:10',
-            'roles' => 'required|min:10',
-            'job_type' => 'required',
-            'address' => 'required',
-            'date' => 'required'
-        ]);
+
+
+        $this->job->store($request);
+
+        return back();
      }
 }
