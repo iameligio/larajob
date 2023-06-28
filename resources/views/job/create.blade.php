@@ -6,12 +6,12 @@
         <div class="col-md-8 mt-5">
 
             <h1>Post a job</h1>
-            <form action="#" method="POST" enctype="multipart/form-data">@csrf
+            <form action="{{ route('job.store') }}" method="POST" enctype="multipart/form-data">@csrf
                 <div class="form-group">
                     <label for="title">Feature Image</label>
-                    <input type="file" name="feature_image" id="feature_image" class="form-control">
-                    @if($errors->has('feature_image'))
-                        <div class="error"> {{$errors->first('feature_image')}}  </div>
+                    <input type="file" name="featured_image" id="featured_image" class="form-control">
+                    @if($errors->has('featured_image'))
+                        <div class="error"> {{$errors->first('featured_image')}}  </div>
                     @endif
                 </div>
                 <div class="form-group">
@@ -96,3 +96,24 @@
     }
 </style>
 @ensection
+@push('styles')
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+  <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+@endpush
+
+@push('scripts')
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+  <script>
+    $( function() {
+      $( "#datepicker" ).datepicker();
+    } );
+
+    $('.summernote').summernote({
+
+        tabsize: 2,
+        height: 100
+      });
+    </script>
+@endpush

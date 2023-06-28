@@ -8,4 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Listing extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'user_id',
+        'title',
+        'description',
+        'roles',
+        'job_type',
+        'address',
+        'salary',
+        'application_close_date',
+        'featured_image',
+        'slug'
+    ];
 }

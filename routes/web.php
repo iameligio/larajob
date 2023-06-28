@@ -55,3 +55,4 @@ Route::get('payment/cancel', [SubscriptionController::class, 'paymentCancel'])->
 
 
 Route::get('job/create', [PostJobController::class,'create'])->name('job.create');
+Route::post('job/store', [PostJobController::class,'store'])->name('job.store');
