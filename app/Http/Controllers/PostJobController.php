@@ -14,6 +14,6 @@ class PostJobController extends Controller
 
      public function create()
      {
-        return 'create job post';
+        return view('job.create');
      }
 }
