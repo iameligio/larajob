@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\RegistrationFormRequest;
+use App\Models\Listing;
 
 class UserController extends Controller
 {
@@ -88,5 +89,23 @@ class UserController extends Controller
         auth()->logout();
         return redirect()->route('login');
 
+    }
+
+    public function profile()
+    {
+        return view('profile.index');
+    }
+
+    public function update(Request $request)
+    {
+        if($request->hasFile('profile_pic')) {
+            $imagePath = $request->file('profile_pic')->store('profile','public');
+
+            User::find(auth()->user()->id)->update(['profile_pic' => $imagePath ]);
+        }
+
+        User::find(auth()->user()->id)->update($request->except('profile_pic'));
+
+        return back()->with("success","Company name updated");
     }
 }

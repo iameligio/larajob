@@ -1,12 +1,13 @@
 <?php
 
+
+use App\Post\JobPost;
 use App\Http\Middleware\isEmployer;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PostJobController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SubscriptionController;
-use App\Post\JobPost;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 
@@ -40,6 +41,9 @@ Route::post('/register/employer', [UserController::class,'storeEmployer'])->name
 Route::get('/login', [UserController::class,'login'])->name('login');
 Route::post('/login', [UserController::class,'postLogin'])->name('login.post');
 Route::post('/logout', [UserController::class,'logout'])->name('logout');
+
+Route::get('user/profile', [UserController::class, 'profile'])->name('user.profile')->middleware('auth');
+Route::post('user/profile', [UserController::class, 'update'])->name('user.update.profile')->middleware('auth');
 
 Route::get('/dashboard', [DashboardController::class,'index'])->middleware('verified')->name('dashboard');
 Route::get('/verify', [DashboardController::class,'verify'])->name('verification.notice');
