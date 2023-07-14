@@ -60,3 +60,4 @@ Route::post('job/store', [PostJobController::class,'store'])->name('job.store');
 Route::get('job/{listing}/edit', [PostJobController::class, 'edit'])->name('job.edit');
 Route::put('job/{id}/edit', [PostJobController::class, 'update'])->name('job.update');
 Route::get('job', [PostJobController::class, 'index'])->name('job.index');
+Route::delete('job/{id}/delete', [PostJobController::class, 'destroy'])->name('job.destroy');
