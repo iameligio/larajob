@@ -24,6 +24,11 @@
                     <label for="name">Name</label>
                     <input type="text" class="form-control" name="name" value="{{auth()->user()->name}}">
                 </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea id="description" name="about" class="form-control summernote">{{ auth()->user()->about }}</textarea>
+
+                </div>
                 <div class="form-group mt-4">
                     <button class="btn btn-success" type="submit">Update</button>
                 </div>
@@ -64,3 +69,19 @@
 </div>
 
 @endsection
+@push('scripts')
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+  <script>
+    $( function() {
+      $( "#datepicker" ).datepicker();
+    } );
+
+    $('.summernote').summernote({
+
+        tabsize: 2,
+        height: 100
+      });
+    </script>
+@endpush
