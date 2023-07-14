@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Listing;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\RegistrationFormRequest;
-use App\Models\Listing;
 
 class UserController extends Controller
 {
@@ -51,7 +52,7 @@ class UserController extends Controller
         $credentails = $request->only('email', 'password');
 
         if(Auth::attempt($credentails)) {
-                if(auth()->user()->user_type=="employer") {
+                if(auth()->user()->user_type==self::JOB_SEEKER) {
                     return redirect()->to('/dashboard');
                 }else{
                     return redirect()->to('/');
@@ -98,6 +99,29 @@ class UserController extends Controller
     public function profile()
     {
         return view('profile.index');
+    }
+
+    public function seekerProfile()
+    {
+        return view('seeker.profile');
+    }
+
+    public function changePassword(Request $request)
+    {
+        $request->validate([
+            'current_password' => 'required',
+            'password' => 'required|min:8|confirmed',
+        ]);
+
+        $user = auth()->user();
+        if(Hash::check($request->current_password, $user->password)) {
+            return back()->with("error","Your current password is incorrect!");
+        }
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        return back()->with("success","Your password has been updated successfully!");
+
     }
 
     public function update(Request $request)
