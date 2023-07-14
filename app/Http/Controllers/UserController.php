@@ -51,8 +51,12 @@ class UserController extends Controller
         $credentails = $request->only('email', 'password');
 
         if(Auth::attempt($credentails)) {
+                if(auth()->user()->user_type=="employer") {
+                    return redirect()->to('/dashboard');
+                }else{
+                    return redirect()->to('/');
+                }
 
-                return redirect()->to('/dashboard');
 
         }
 
