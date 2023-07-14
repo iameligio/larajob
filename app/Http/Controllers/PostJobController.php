@@ -17,7 +17,8 @@ class PostJobController extends Controller
 
     public function __construct(JobPost $job)
     {
-        $this->middleware(['auth',isPremiumUser::class]);
+        $this->middleware('auth');
+        $this->middleware(isPremiumUser::class)->only(['create','store']);
         $this->job = $job;
     }
 
