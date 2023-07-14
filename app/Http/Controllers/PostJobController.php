@@ -21,6 +21,11 @@ class PostJobController extends Controller
         $this->job = $job;
     }
 
+    public function index()
+    {
+        $jobs = Listing::where('user_id', auth()->user()->id)->get();
+        return view('job.index', compact('jobs'));
+    }
      public function create()
      {
         return view('job.create');
@@ -29,8 +34,7 @@ class PostJobController extends Controller
      public function store(JobPostFormRequest $request)
      {
 
-
-        $this->job->store($request);
+        $this->job->storePost($request);
 
         return back();
      }

@@ -20,7 +20,7 @@ class JobPost {
         return $data->file('featured_image')->store('images','public');
     }
 
-    public function store(Request $data):void
+    public function storePost(Request $data):void
     {
 
         $imagePath =  $this->getImagepath($data);
