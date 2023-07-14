@@ -66,6 +66,26 @@
             </div>
         </form>
     </div>
+
+    <div class="row justify-content-center">
+        <h2>Update your resume</h2>
+
+        <form action="{{ route('upload.resume',[auth()->user()->id]) }}" method="post" enctype="multipart/form-data">@csrf
+            <div class="col-md-8">
+                <div class="form-group">
+                    <label for="resume">Upload Resume</label>
+                    <input type="file" name="resume" class="form-control" id="resume">
+                    @if($errors->has('current_password'))
+                            <span class="text-danger">{{ $errors->first('current_password')}}</span>
+                            @endif
+                </div>
+
+                <div class="form-group mt-4">
+                    <button class="btn btn-success" type="submit">Upload</button>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
 
 @endsection

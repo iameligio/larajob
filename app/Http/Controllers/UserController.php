@@ -136,4 +136,19 @@ class UserController extends Controller
 
         return back()->with("success","Company name updated");
     }
+
+    public function uploadResume(Request $request)
+    {
+        $request->validate([
+            'resume' => 'required|mimes:pdf,doc,docx',
+
+        ]);
+        if($request->hasFile('resume')) {
+            $resumePath = $request->file('resume')->store('resume','public');
+
+            User::find(auth()->user()->id)->update(['resume' => $resumePath]);
+        }
+
+        return back()->with("success","Resume updated");
+    }
 }
