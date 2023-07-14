@@ -6,8 +6,9 @@ namespace App\Http\Controllers;
 use App\Post\JobPost;
 use App\Models\Listing;
 use Illuminate\Support\Str;
-use Illuminate\Http\Request;
+
 use App\Http\Middleware\isPremiumUser;
+use App\Http\Requests\JobEditFormRequest;
 use App\Http\Requests\JobPostFormRequest;
 
 class PostJobController extends Controller
@@ -32,5 +33,18 @@ class PostJobController extends Controller
         $this->job->store($request);
 
         return back();
+     }
+
+     public function edit(Listing $listing)
+     {
+        return view('job.edit',compact('listing') );
+     }
+
+     public function update($id,JobEditFormRequest $request)
+     {
+
+        $this->job->updatePost($id,$request);
+
+        return back()->with('success','Your job post has been successfully updated');
      }
 }
